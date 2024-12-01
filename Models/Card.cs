@@ -28,7 +28,7 @@ namespace HigherLowerApi.Models
         {
             if (Suit == Suit.Joker)
             {
-                return "Joker";  // For Joker, simply return "Joker" as the string representation
+                return "Joker";  // For Joker, return "Joker" as the string representation
             }
 
             string rankName = Rank switch

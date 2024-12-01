@@ -55,25 +55,6 @@ namespace HigherLowerApi.Models
         {
             return cards.Count == 0;
         }
-
-        //// Method to reset the deck with or without Jokers
-        //public void ResetDeck(bool includeJokers)
-        //{
-        //    cards.Clear();
-        //    // Reinitialize the deck with or without Jokers based on the flag
-        //    foreach (Suit suit in Enum.GetValues(typeof(Suit)))
-        //    {
-        //        for (int rank = 1; rank <= 13; rank++)
-        //        {
-        //            cards.Add(new Card(rank, suit));
-        //        }
-        //    }
-        //    if (includeJokers)
-        //    {
-        //        cards.Add(new Card(0, Suit.Joker));
-        //        cards.Add(new Card(0, Suit.Joker));
-        //    }
-        //}
     }
 }
 

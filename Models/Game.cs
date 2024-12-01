@@ -24,8 +24,6 @@ namespace HigherLowerApi.Models
             deck.Shuffle();
             score = 0;
             currentCard = deck.DealCard();
-
-
         }
 
         public string MakeGuess(string guess)
@@ -42,8 +40,8 @@ namespace HigherLowerApi.Models
             string result = "";
 
             if (currentCard.Suit == Suit.Joker || nextCard.Suit == Suit.Joker ||
-        (guess.ToLower() == "higher" && nextCard.Rank > currentCard.Rank) ||
-        (guess.ToLower() == "lower" && nextCard.Rank < currentCard.Rank))
+            (guess.ToLower() == "higher" && nextCard.Rank > currentCard.Rank) ||
+             (guess.ToLower() == "lower" && nextCard.Rank < currentCard.Rank))
             {
                 score++;
                 result = "Correct!";
