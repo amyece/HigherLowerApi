@@ -7,27 +7,32 @@ namespace HigherLowerApi.Models
         private Deck deck;
         private int score;
         private Card currentCard;
+        private bool includeJokers;
 
         public Game()
         {
-            deck = new Deck();
+            includeJokers = false;
+            deck = new Deck(includeJokers);
             score = 0;
             currentCard = new Card(0, Suit.Hearts);
         }
 
 
-        public void StartGame()
+        public void StartGame(bool includeJokers)
         {
+            deck = new Deck(includeJokers);
             deck.Shuffle();
             score = 0;
             currentCard = deck.DealCard();
+
+
         }
 
         public string MakeGuess(string guess)
         {
             if (deck.IsEmpty())
             {
-                deck = new Deck();
+                deck = new Deck(includeJokers);
                 deck.Shuffle();
                 score = 0;
                 currentCard = deck.DealCard();
@@ -36,7 +41,9 @@ namespace HigherLowerApi.Models
             var nextCard = deck.DealCard();
             string result = "";
 
-            if ((guess.ToLower() == "higher" && nextCard.Rank > currentCard.Rank) || (guess.ToLower() == "lower" && nextCard.Rank < currentCard.Rank))
+            if (currentCard.Suit == Suit.Joker || nextCard.Suit == Suit.Joker ||
+        (guess.ToLower() == "higher" && nextCard.Rank > currentCard.Rank) ||
+        (guess.ToLower() == "lower" && nextCard.Rank < currentCard.Rank))
             {
                 score++;
                 result = "Correct!";
@@ -46,12 +53,11 @@ namespace HigherLowerApi.Models
                 score = 0;
                 result = "Incorrect!";
             }
-
             currentCard = nextCard;
 
             if (deck.IsEmpty())
             {
-                deck = new Deck();
+                deck = new Deck(includeJokers);
                 deck.Shuffle();
             }
 
@@ -70,6 +76,17 @@ namespace HigherLowerApi.Models
 
                 Score = score
             };
+        }
+
+        // Method to toggle Jokers on or off
+        public void ToggleJokers()
+        {
+            includeJokers = !includeJokers;  // Toggle the includeJokers flag
+            deck = new Deck(includeJokers);  // Recreate the deck based on the new setting
+            deck.Shuffle();
+            score = 0;
+            currentCard = deck.DealCard();
+            StartGame(includeJokers);
         }
     }
 }

@@ -18,9 +18,9 @@ namespace HigherLowerApi.Controllers
         }
 
         [HttpPost("start")]
-        public IActionResult StartGame()
+        public IActionResult StartGame([FromBody] bool includeJokers)
         {
-            game.StartGame();
+            game.StartGame(includeJokers);
             return Ok(game.GetGameState());
         }
 
